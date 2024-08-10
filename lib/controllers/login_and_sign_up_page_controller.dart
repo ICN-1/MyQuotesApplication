@@ -23,6 +23,7 @@ class LoginAndSignupPageController extends GetxController {
 
         DocumentReference documentReference = _firestore.collection("Users Details").doc(userCredential.user!.uid);
         Map<String, Object> usersMap = {
+          "Image": "",
           "First Name": "Not set",
           "Last Name": "Not set",
           "Username": username,
