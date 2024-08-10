@@ -35,7 +35,7 @@ class AppTextFormField extends StatelessWidget {
       child: Obx(() => TextFormField(
         controller: controller,
         keyboardType: inputType,
-        obscureText: textFormFieldController.isTextHidden,
+        obscureText: isPassword ? textFormFieldController.isTextHidden : textFormFieldController.isFalse,
         validator: (String? text) => validationType(text),
 
         decoration: InputDecoration(

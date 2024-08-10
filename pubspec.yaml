@@ -41,6 +41,9 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
   cloud_firestore: ^4.17.5
+  image_picker: ^1.1.2
+  path_provider: ^2.1.4
+  path: ^1.9.0
 
 dev_dependencies:
   flutter_test:
@@ -69,6 +72,7 @@ flutter:
     - assets/icons/google_icon.jpeg
     - assets/icons/create_user_icon.png
     - assets/icons/quote_icon.png
+    - assets/images/profile_image.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
