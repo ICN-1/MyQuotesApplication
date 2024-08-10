@@ -150,7 +150,7 @@ class SignUpPage extends StatelessWidget {
                               text: "Already have an account?",
                               style: TextStyle(
                                 fontWeight: FontWeight.w500,
-                                fontSize: AppSizes.textSmall,
+                                fontSize: AppSizes.textNormal,
                                 color: AppColors.black
                               ),
                               children: [
@@ -158,7 +158,7 @@ class SignUpPage extends StatelessWidget {
                                   text: " Login",
                                   style: TextStyle(
                                     fontWeight: FontWeight.w500,
-                                    fontSize: AppSizes.textSmall,
+                                    fontSize: AppSizes.textNormal,
                                     color: AppColors.blue
                                   ),
                                 )

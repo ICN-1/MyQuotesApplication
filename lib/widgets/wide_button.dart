@@ -34,7 +34,7 @@ class WideButton extends StatelessWidget {
         ),
         width: double.infinity,
         child: Padding(
-          padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
+          padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

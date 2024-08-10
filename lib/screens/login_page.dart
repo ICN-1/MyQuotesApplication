@@ -116,7 +116,7 @@ class LoginPage extends StatelessWidget {
                               text: "Don't have an account?",
                               style: TextStyle(
                                 fontWeight: FontWeight.w500,
-                                fontSize: AppSizes.textSmall,
+                                fontSize: AppSizes.textNormal,
                                 color: AppColors.black
                               ),
                               children: [
@@ -124,7 +124,7 @@ class LoginPage extends StatelessWidget {
                                   text: " Sign up",
                                   style: TextStyle(
                                     fontWeight: FontWeight.w500,
-                                    fontSize: AppSizes.textSmall,
+                                    fontSize: AppSizes.textNormal,
                                     color: AppColors.blue
                                   ),
                                 )
