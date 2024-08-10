@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:my_quotes_application/utils/constants/colors.dart';
 import 'package:my_quotes_application/utils/constants/sizes.dart';
 
@@ -7,13 +6,10 @@ class TextRows extends StatelessWidget {
   const TextRows({
     super.key, 
     required this.leadingText, 
-    required this.controller, 
-    required this.validator, 
+    required this.respondingText, 
   });
 
-  final String leadingText;
-  final TextEditingController controller;
-  final String? Function(String?) validator;
+  final String leadingText, respondingText;
 
   @override
   Widget build(BuildContext context) {
@@ -26,36 +22,34 @@ class TextRows extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  leadingText,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: AppSizes.textNormal,
+                Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 20.0),
+                    child: Text(
+                      leadingText,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: AppSizes.textSmall,
+                      ),
+                    ),
                   ),
                 ),
             
-                TextFormField(
-                  style: const TextStyle(
-                    fontWeight: FontWeight.normal,
-                    fontSize: AppSizes.textBig,
-                  ), 
-                  
-                  controller: controller,
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.zero,
+                Flexible(
+                  child: Text(
+                    respondingText,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.normal,
+                      fontSize: AppSizes.textBig,
+                    ),
                   ),
-                  validator: (text) => validator(text),
-                  inputFormatters: [
-                    FilteringTextInputFormatter.singleLineFormatter
-                  ],
-                )
+                ),
               ],
             ),
           ),
       
           Padding(
-            padding: const EdgeInsets.only(top: 7.0, bottom: 20.0),
+            padding: const EdgeInsets.only(top: 5.0, bottom: 7.0),
             child: Container(
               height: 1.0,
               width: double.infinity,

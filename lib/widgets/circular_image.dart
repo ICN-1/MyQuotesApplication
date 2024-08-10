@@ -18,7 +18,8 @@ class CircularImage extends StatelessWidget {
         color: AppColors.yellow,
         shape: BoxShape.circle,
         image: DecorationImage(
-          image: image
+          image: image,
+          fit: BoxFit.cover
         )
       ),
     );

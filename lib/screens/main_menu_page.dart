@@ -13,35 +13,36 @@ class MainMenuPage extends StatelessWidget {
 
     return Obx(() => Scaffold(
       body: mainMenuController.pages[mainMenuController.tabIndex],
-      bottomNavigationBar: SizedBox(
-        height: 80,
-        child: BottomNavigationBar(
-          backgroundColor: AppColors.blue,
-          showSelectedLabels: true,
-          showUnselectedLabels: true,
-          selectedFontSize: AppSizes.textBig,
-          unselectedFontSize: AppSizes.textSmall,
-          selectedItemColor: AppColors.white,
-          unselectedItemColor: AppColors.white,
-          currentIndex: mainMenuController.tabIndex,
-          onTap: (index) => mainMenuController.changeTab(index),
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.pages_rounded,
-                color: AppColors.white,
+      bottomNavigationBar: IntrinsicHeight(
+        child: SizedBox(
+          child: BottomNavigationBar(
+            backgroundColor: AppColors.blue,
+            showSelectedLabels: true,
+            showUnselectedLabels: true,
+            selectedFontSize: AppSizes.textBig,
+            unselectedFontSize: AppSizes.textSmall,
+            selectedItemColor: AppColors.white,
+            unselectedItemColor: AppColors.white,
+            currentIndex: mainMenuController.tabIndex,
+            onTap: (index) => mainMenuController.changeTab(index),
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.pages_rounded,
+                  color: AppColors.white,
+                ),
+                label: "Quotes",
               ),
-              label: "Quotes",
-            ),
-
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.person, 
-                color: AppColors.white,
-              ),
-              label: "Profile"
-            )
-          ],
+        
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.person, 
+                  color: AppColors.white,
+                ),
+                label: "Profile"
+              )
+            ],
+          ),
         ),
       ),
     ));

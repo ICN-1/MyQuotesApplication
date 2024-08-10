@@ -11,6 +11,9 @@ class LoginAndSignupPageController extends GetxController {
   final RxBool _isTextHidden = true.obs;
   bool get isTextHidden => _isTextHidden.value;
 
+  final RxBool _isFalse = false.obs;
+  bool get isFalse => _isFalse.value;
+
   Future<void> createAccount(GlobalKey<FormState> formKey, String username, String email, String phone, String password) async{
     final isCreated = formKey.currentState?.validate();
     if (isCreated!) {
@@ -23,6 +26,7 @@ class LoginAndSignupPageController extends GetxController {
 
         DocumentReference documentReference = _firestore.collection("Users Details").doc(userCredential.user!.uid);
         Map<String, Object> usersMap = {
+          "Image": "",
           "First Name": "Not set",
           "Last Name": "Not set",
           "Username": username,
@@ -80,8 +84,6 @@ class LoginAndSignupPageController extends GetxController {
   void setHiddentextState(bool isPassword){
     if (isPassword) {
       _isTextHidden.value = !_isTextHidden.value;
-    }else{
-      _isTextHidden.value = false;
     }
   }
 }

@@ -54,4 +54,30 @@ class AppValidator {
 
     return null;
   }
+
+  static String? validatePassword2 (String? password){
+    if (password == null) {
+      return null;
+    } 
+
+    if (password.isNotEmpty) {
+      if (password.length < 6) {
+        return "Password must be at least 6 characters long";
+      }
+
+      if (!password.contains(RegExp(r'[A-Z]'))) {
+        return "Password must contain at least one uppercase letter";
+      }
+
+      if (!password.contains(RegExp(r'[0-9]'))) {
+        return "Password must contain at least one number";
+      }
+
+      if (!password.contains(RegExp(r'[!@#$%^&*(),.?:{}|<>]'))) {
+        return "Password must contain at least one special character.";
+      }
+    }
+
+    return null;
+  }
 }

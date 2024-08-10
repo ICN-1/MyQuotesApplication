@@ -8,17 +8,19 @@ class SmallButton extends StatelessWidget {
     required this.buttonText, 
     required this.textColor, 
     required this.backgroundColor, 
-    required this.icon
+    required this.icon, 
+    required this.onPressed
   });
 
   final String buttonText;
   final Color textColor, backgroundColor;
   final IconData icon;
+  final void Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: onPressed,
       child: Container(
         decoration: BoxDecoration(
           color: backgroundColor,
@@ -31,12 +33,13 @@ class SmallButton extends StatelessWidget {
 
         width: 150,
         child: Padding(
-          padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
+          padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(
-                icon
+                icon,
+                color: textColor,
               ),
               
               Padding(

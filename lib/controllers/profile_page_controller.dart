@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:my_quotes_application/routes/routes.dart';
+import 'package:my_quotes_application/screens/edit_profile_dialog.dart';
 import 'package:path/path.dart' as Path;
 
 class ProfilePageController extends GetxController {
@@ -17,7 +19,7 @@ class ProfilePageController extends GetxController {
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   FirebaseStorage storage = FirebaseStorage.instance;
-  late File imageFile;
+  File? imageFile;
 
   final RxString _imageUrl = "".obs;
   String get imageUrl => _imageUrl.value;
@@ -37,13 +39,32 @@ class ProfilePageController extends GetxController {
   final RxString _phoneNumber = "".obs;
   String get phoneNumber => _phoneNumber.value;
 
-  
+  void goToEditProfileDialog(context){
+    Get.dialog(EditProfileDialog(
+      firstName: firstName, 
+      lastName: lastName, 
+      username: username, 
+      emailAddress: emailAddress, 
+      phoneNumber: phoneNumber
+    ));
+  }
+
+  Future<void> logOut() async {
+    try {
+      await firebaseAuth.signOut();
+      Get.snackbar("Logout", "You have been successfully logged out.");
+      Get.offAllNamed(AppRoutes.loginPageRoute);
+    } catch (e) {
+      Get.snackbar("Error", "Failed to log out: $e");
+    }
+  }
 
   Future<void> pickImage() async {
     final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
       imageFile = File(pickedFile.path);
+      _imageUrl.value = imageFile?.path ?? "";
     }
   }
 
@@ -52,12 +73,12 @@ class ProfilePageController extends GetxController {
     
     firestore.collection("Users Details").doc(userId).get().then((DocumentSnapshot documentSnapshot){
       if (documentSnapshot.exists) {
-        _firstName.value = documentSnapshot.get("First Name");
-        _lastName.value = documentSnapshot.get("Last Name");
-        _username.value = documentSnapshot.get("Username");
-        _emailAddress.value = documentSnapshot.get("Email Address");
-        _phoneNumber.value = documentSnapshot.get("Phone Number");
-        _imageUrl.value = documentSnapshot.get("Image");
+        _firstName.value = "${documentSnapshot.get("First Name")}";
+        _lastName.value = "${documentSnapshot.get("Last Name")}";
+        _username.value = "${documentSnapshot.get("Username")}";
+        _emailAddress.value = "${documentSnapshot.get("Email Address")}";
+        _phoneNumber.value = "${documentSnapshot.get("Phone Number")}";
+        _imageUrl.value = "${documentSnapshot.get("Image")}";
       }
     }).catchError((error){
       Get.snackbar("Error", "Message: $error");
@@ -80,21 +101,31 @@ class ProfilePageController extends GetxController {
       };
 
       documentReference.update(user).then((_){
+        if (emailAddress != userId.email) {
+          userId.updateEmail(emailAddress).catchError((error){
+            Get.snackbar("Error", "Message: $error");
+          });
+        }
+
         if (password.isNotEmpty) {
-          userId.verifyBeforeUpdateEmail(emailAddress).then((_){
-            getUserDetails();
-          Get.snackbar("Successful", "$emailAddress account updated successfully");
-        }).catchError((error){
-          Get.snackbar("Error", "Message: $error");
-        });
-      }
+          userId.updatePassword(password).catchError((error){
+            Get.snackbar("Error", "Message: $error");
+          });
+        }
+
+        getUserDetails();
+        Get.snackbar("Successful", "$emailAddress account updated successfully");
       }).catchError((error){
         Get.snackbar("Update Failure", "Message: $error");
       });
+
+      Get.close(1);
     }
   }
 
-  Future<void> _uploadImage(File imageFile) async {
+  Future<void> _uploadImage(File? imageFile) async {
+    if (imageFile == null) return; 
+
     try {
       String userId = firebaseAuth.currentUser!.uid;
       String fileName = Path.basename(imageFile.path);
