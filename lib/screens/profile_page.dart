@@ -39,30 +39,30 @@ class ProfilePage extends StatelessWidget {
                 key: formKey,
                 child: Column(
                   children: [
-                    TextRows(
+                    Obx(() => TextRows(
                       leadingText: "First Name:", 
                       respondingText: profilePageController.firstName
-                    ),
+                    )),
 
-                    TextRows(
+                    Obx(() => TextRows(
                       leadingText: "Last Name:",
                       respondingText: profilePageController.lastName,
-                    ),
+                    )),
 
-                    TextRows(
+                    Obx(() =>  TextRows(
                       leadingText: "Username:", 
                       respondingText: profilePageController.username,
-                    ),
+                    )),
 
-                    TextRows(
+                    Obx(() =>  TextRows(
                       leadingText: "Email Address:", 
                       respondingText: profilePageController.emailAddress,
-                    ),
+                    )),
 
-                    TextRows(
+                    Obx(() =>  TextRows(
                       leadingText: "Phone Number:", 
                       respondingText: profilePageController.phoneNumber,
-                    ),
+                    )),
                   ]
                 )
               ),
