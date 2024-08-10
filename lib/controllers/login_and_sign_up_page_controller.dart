@@ -11,7 +11,7 @@ class LoginAndSignupPageController extends GetxController {
   final RxBool _isTextHidden = true.obs;
   bool get isTextHidden => _isTextHidden.value;
 
-  final RxBool _isFalse = true.obs;
+  final RxBool _isFalse = false.obs;
   bool get isFalse => _isFalse.value;
 
   Future<void> createAccount(GlobalKey<FormState> formKey, String username, String email, String phone, String password) async{
@@ -84,8 +84,6 @@ class LoginAndSignupPageController extends GetxController {
   void setHiddentextState(bool isPassword){
     if (isPassword) {
       _isTextHidden.value = !_isTextHidden.value;
-    }else{
-      _isFalse.value = false;
     }
   }
 }
