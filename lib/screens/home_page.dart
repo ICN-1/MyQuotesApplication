@@ -17,7 +17,7 @@ class HomePage extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'My Quotes Application',
       initialBinding: AppBindings(),
-      home: const MainMenuPage(),
+      home: const LoginPage(),
       getPages: [
         GetPage(name: AppRoutes.loginPageRoute, page: ()=> const LoginPage()),
         GetPage(name: AppRoutes.signUpPageRoute, page: ()=> const SignUpPage()),

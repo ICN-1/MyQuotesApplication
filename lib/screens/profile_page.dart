@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:my_quotes_application/controllers/profile_page_controller.dart';
 import 'package:my_quotes_application/utils/constants/colors.dart';
@@ -22,7 +21,6 @@ class ProfilePage extends StatelessWidget {
     TextEditingController emailAddressController = TextEditingController();
     TextEditingController phoneNumberController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
-    FocusNode focusNode = FocusNode();
 
     ProfilePageController profilePageController = Get.put(ProfilePageController());
     firstNameController.text = profilePageController.firstName;
