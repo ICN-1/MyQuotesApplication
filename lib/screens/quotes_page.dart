@@ -13,36 +13,80 @@ class QuotesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     QuotesPageController quotesPageController = Get.put(QuotesPageController());
 
-    return SafeArea(
-      child: Obx(() => Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            AppTexts.quotesHeader,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: AppSizes.headingBig,
-              color: AppColors.white
+    return GestureDetector(
+      onTap: (){
+        if (quotesPageController.isSearchVisible) {
+          quotesPageController.toggleSearchVisibility();
+        }
+      },
+      child: SafeArea(
+        child: Obx(() => Scaffold(
+          appBar: AppBar(
+            title: const Text(
+              AppTexts.quotesHeader,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: AppSizes.headingBig,
+                color: AppColors.white
+              ),
+            ),
+            backgroundColor: AppColors.blue,
+          ),
+      
+          body: Column(
+            children: [
+              if (quotesPageController.isSearchVisible) 
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                  child: TextField(
+                    focusNode: quotesPageController.searchFocusNode,
+                    onChanged: (value) {
+                      quotesPageController.filterQuotes(value);
+                    },
+                    decoration: const InputDecoration(
+                      hintText: "Search Quotes...",
+                      hintStyle: TextStyle(
+                        color: AppColors.black
+                      ),
+                    ),
+                    style: const TextStyle(
+                      color: AppColors.black
+                    ),
+                  )
+                ),
+      
+              quotesPageController.isLoading 
+                ? const Center(
+                  child: CircularProgressIndicator()
+                ) : Expanded(
+                  child: ListView.builder(
+                    itemCount: quotesPageController.filteredQuotes.length,
+                    itemBuilder: (context, index){
+                      return Padding(
+                        padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
+                        child: QuoteCards(
+                          text: quotesPageController.filteredQuotes[index]["quote"],
+                          author: quotesPageController.filteredQuotes[index]["author"]
+                        ),
+                      );
+                    }
+                  ),
+                ),
+            ],
+          ),
+      
+          floatingActionButton: FloatingActionButton(
+            backgroundColor: AppColors.blue,
+            onPressed: () {
+              quotesPageController.toggleSearchVisibility();
+            },
+            child: const Icon(
+              Icons.search_rounded,
+              color: AppColors.white,
             ),
           ),
-          backgroundColor: AppColors.blue,
-        ),
-
-        body: quotesPageController.isLoading 
-          ? const Center(
-            child: CircularProgressIndicator()
-          ) : ListView.builder(
-            itemCount: quotesPageController.quotes.length,
-            itemBuilder: (context, index){
-              return Padding(
-                padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
-                child: QuoteCards(
-                  text: quotesPageController.quotes[index]["quote"],
-                  author: quotesPageController.quotes[index]["author"]
-                ),
-              );
-            }
-          )
-      ))
+        ))
+      ),
     );
   }
 }
