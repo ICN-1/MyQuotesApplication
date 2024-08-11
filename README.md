@@ -17,3 +17,4 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Documentation
 For more information, visit the [Appetize Link](https://appetize.io/app/b_rbubq5iixb2fhbfvzhkch5p2sa).
+Login details: [Email Address](ifechukwucnwachukwu@gmail.com) and [Password](ife1225NWA@)
